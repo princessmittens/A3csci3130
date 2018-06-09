@@ -9,7 +9,7 @@ import android.widget.EditText;
 public class CreateContactAcitivity extends Activity {
 
     private Button submitButton;
-    private EditText nameField, emailField;
+    private EditText nameField, emailField, address, busNum, busType, province;
     private MyApplicationData appState;
 
     @Override
@@ -21,6 +21,10 @@ public class CreateContactAcitivity extends Activity {
 
         submitButton = (Button) findViewById(R.id.submitButton);
         nameField = (EditText) findViewById(R.id.name);
+        address = (EditText) findViewById(R.id.address);
+        busNum = (EditText) findViewById(R.id.num);
+        busType = (EditText) findViewById(R.id.bustype);
+        province = (EditText) findViewById(R.id.province);
         emailField = (EditText) findViewById(R.id.email);
     }
 
@@ -28,8 +32,12 @@ public class CreateContactAcitivity extends Activity {
         //each entry needs a unique ID
         String personID = appState.firebaseReference.push().getKey();
         String name = nameField.getText().toString();
+        String num = busNum.getText().toString();
+        String primaryBus = busType.getText().toString();
+        String add = address.getText().toString();
+        String prov = province.getText().toString();
         String email = emailField.getText().toString();
-        Contact person = new Contact(personID, name, email);
+        Contact person = new Contact(personID, name, num, primaryBus, add, prov, email);
 
         appState.firebaseReference.child(personID).setValue(person);
 
